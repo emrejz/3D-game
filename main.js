@@ -10,6 +10,7 @@ import {
 } from "three";
 
 import "./style.css";
+import { generateBox } from "./utils/generateBox";
 
 let camera, scene, renderer;
 const width = 10;
@@ -17,11 +18,8 @@ const heigth = width * (window.innerWidth / window.innerHeight);
 
 scene = new Scene();
 
-const geometry = new BoxGeometry(3, 1, 3);
-const material = new MeshLambertMaterial({ color: "blue" });
-const mesh = new Mesh(geometry, material);
-mesh.position.set(0, 0, 0);
-scene.add(mesh);
+const box = generateBox(0, 0, 0);
+scene.add(box);
 
 const ambientLight = new AmbientLight(0xffffff, 0.6);
 scene.add(ambientLight);
