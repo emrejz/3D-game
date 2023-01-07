@@ -1,9 +1,6 @@
 import {
   AmbientLight,
-  BoxGeometry,
   DirectionalLight,
-  Mesh,
-  MeshLambertMaterial,
   OrthographicCamera,
   Scene,
   WebGLRenderer,
