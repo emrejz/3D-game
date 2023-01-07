@@ -5,9 +5,8 @@ import {
   Scene,
   WebGLRenderer,
 } from "three";
-
+import { generateBox } from "./utils";
 import "./style.css";
-import { generateBox } from "./utils/generateBox";
 
 let camera, scene, renderer;
 const width = 10;
