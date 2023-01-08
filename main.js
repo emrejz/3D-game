@@ -62,10 +62,27 @@ window.addEventListener("click", () => {
     renderer.setAnimationLoop(animate);
     isGameStarted = true;
   } else {
-    const { width, depth, direction } = boxes[boxes.length - 1];
-    const newDirection = direction === "x" ? "z" : "x";
-    const x = direction === "x" ? 0 : -10;
-    const z = direction === "z" ? 0 : -10;
-    addLayer(x, z, width, depth, newDirection);
+    const topBox = boxes[boxes.length - 1];
+    const prevBox = boxes[boxes.length - 2];
+    const direction = topBox.direction;
+    const diff =
+      topBox.mesh.position[direction] - prevBox.mesh.position[direction];
+    const diffSize = Math.abs(diff);
+    const size = direction === "x" ? topBox.width : topBox.depth;
+    const overlap = size - diffSize;
+    if (overlap > 0) {
+      const newDirection = direction === "x" ? "z" : "x";
+      const newWidth = direction === "x" ? overlap : topBox.width;
+      const newDepth = direction === "z" ? overlap : topBox.depth;
+
+      topBox.width = newWidth;
+      topBox.depth = newDepth;
+
+      topBox.mesh.scale[direction] = overlap / size;
+      topBox.mesh.position[direction] -= diff / 2;
+      const x = newDirection === "x" ? -10 : topBox.mesh.position.x;
+      const z = newDirection === "z" ? -10 : topBox.mesh.position.z;
+      addLayer(x, z, newWidth, newDepth, newDirection);
+    }
   }
 });
